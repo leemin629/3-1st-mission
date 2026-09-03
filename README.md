@@ -7,7 +7,7 @@
 관광산업은 계절적 요인의 영향을 크게 받는 분야로, 특정 시기에 방문자와 소비가 집중되는 경향이 있다. 이러한 패턴을 체계적으로 파악하는 것은 관광정책 수립, 비수기 활성화 전략 마련, 업종별 운영계획 설계에 중요한 기초자료가 된다.
 
 본 분석에서는 전체방문자수와 관광소비 관련 주요 변수를 대상으로 월별 평균과 상대수준 지수를 산출하여, 어느 시기가 성수기이며 어느 시기가 비수기인지를 확인하였다. 또한 코로나19 전후 시기를 구분하여 월별 패턴의 변화 여부를 비교 분석하였다.
-
+또한 분석 결과를 사용자가 직접 탐색할 수 있도록 Streamlit 기반 인터랙티브 대시보드를 함께 구현하였다.
 ---
 
 ## 2. 프로젝트 목적
@@ -141,6 +141,8 @@
 
 ## 6. 변수별 분석 결과
 
+분석 결과를 대시보드 형태로 구현하여 사용자가 연도별·변수별 패턴을 직접 탐색할 수 있도록 한다.
+
 ### 6.1 변수별 최고월과 최저월
 
 전체 기간 기준으로 각 변수의 대표적인 최고월과 최저월을 정리하면 다음과 같다.
@@ -245,22 +247,73 @@
 대부분의 변수에서 2월 또는 3월이 낮은 수준을 나타냈다.  
 따라서 이 시기를 대상으로 한 지역 축제, 할인 정책, 체험 프로그램 확대 등 **비수기 수요 보완 전략**이 필요하다.
 
-## 9. 저장소 구성
+## 9. Streamlit 대시보드 구현
+
+분석 결과를 정적인 그래프와 표로만 확인하는 데에는 한계가 있으므로,  
+사용자가 원하는 연도와 변수를 직접 선택하여 월별 패턴을 비교할 수 있도록  
+Streamlit 기반 인터랙티브 대시보드를 구현하였다.
+
+### 9.1 대시보드 목적
+
+대시보드의 목적은 다음과 같다.
+
+1. 사용자가 특정 연도만 선택하여 월별 패턴을 확인할 수 있도록 한다.
+2. 여러 연도를 동시에 선택하여 같은 변수의 연도별 차이를 비교할 수 있도록 한다.
+3. 방문자 수와 소비 변수들을 자유롭게 선택하여 비교할 수 있도록 한다.
+4. 정적 산출물 외에 상호작용 기반 분석 환경을 제공한다.
+
+### 9.2 주요 기능
+
+대시보드에는 다음 기능을 구현하였다.
+
+- 연도 다중 선택
+- 변수 다중 선택
+- `pills` 기반 선택 UI 제공
+- 연도 전체 선택 / 전체 해제 토글
+- 변수 전체 선택 / 전체 해제 토글
+- 선택한 변수별 월별 비교 그래프 출력
+- 선택한 연도 데이터 미리보기 표 제공
+
+### 9.3 사용 방법
+
+1. 연도 선택 영역에서 원하는 연도를 선택한다.
+2. 변수 선택 영역에서 원하는 지표를 선택한다.
+3. `전체 선택` 토글을 켜면 모든 항목이 한 번에 선택된다.
+4. 토글을 끄면 모든 항목이 한 번에 해제된다.
+5. 선택 결과에 따라 연도별 월별 비교 그래프와 데이터 미리보기가 표시된다.
+
+### 9.4 인터페이스 구성
+
+대시보드는 사용 편의성을 높이기 위해 다음과 같이 구성하였다.
+
+- 연도와 변수 선택 영역을 좌우로 분리하여 한 화면에서 조건을 직관적으로 조작할 수 있도록 구성
+- `pills` UI를 사용하여 선택 상태를 버튼 형태로 명확하게 표시
+- 여러 변수를 선택한 경우 변수별 그래프를 세로로 배치하여 가독성 확보
+- 선택한 연도만 데이터 미리보기 표에 표시되도록 하여 불필요한 정보 제거
+
+### 9.5 구현 의의
+
+기존 분석 결과는 정적인 시각화 중심이었지만,  
+대시보드를 추가함으로써 사용자가 관심 있는 연도와 변수 조합을 직접 선택하고  
+즉시 결과를 확인할 수 있게 되었다.
+
+이를 통해 분석 결과의 재사용성과 탐색성이 높아졌으며,  
+단순 보고서형 결과물에서 상호작용형 분석 결과물로 확장되었다.
+
+## 10. 저장소 구성
 
 본 저장소의 전체 구조는 다음과 같다.
 
 ```text
 3-1st-mission/
+├─ app.py
+├─ dashboard/
+│  ├─ __init__.py
+│  ├─ config.py
+│  ├─ data_loader.py
+│  └─ charts.py
 ├─ data/
 │  ├─ raw/
-│  │  ├─ 201801-201812_관광소비_추이.csv
-│  │  ├─ 201801-201812_방문자수_추이.csv
-│  │  ├─ 201801-201812_업종별_지출액.csv
-│  │  ├─ 201801-201812_지역별_방문자수_광역.csv
-│  │  ├─ 201801-201812_지역별_방문자수_기초.csv
-│  │  ├─ 201801-201812_지역별_지출액.csv
-│  │  ├─ ...
-│  │  └─ 202501-202512_*.csv
 │  └─ processed/
 │     ├─ 01_trend_monthly.csv
 │     ├─ 02_regional_wide.csv
@@ -276,41 +329,27 @@
 ├─ output/
 │  ├─ check_data_report.txt
 │  ├─ check_data_summary.csv
-│  ├─ 01_heatmap_regional_trend.png
-│  ├─ 02_line_top5_regions.png
-│  ├─ 03_bar_top10_basic_2025.png
-│  ├─ 04_boxplot_distribution.png
 │  └─ seasonality/
-│     ├─ monthly_mean_overall_2018_2025.csv
-│     ├─ monthly_mean_pre_covid_2018_2019.csv
-│     ├─ monthly_mean_covid_2020_2021.csv
-│     ├─ monthly_mean_recovery_2022_2025.csv
-│     ├─ seasonal_index_overall_2018_2025.csv
-│     ├─ seasonal_index_pre_covid_2018_2019.csv
-│     ├─ seasonal_index_covid_2020_2021.csv
-│     ├─ seasonal_index_recovery_2022_2025.csv
-│     ├─ time_series_main_variables.png
-│     ├─ seasonal_index_overall_2018_2025.png
-│     ├─ seasonal_index_pre_covid_2018_2019.png
-│     ├─ seasonal_index_covid_2020_2021.png
-│     ├─ seasonal_index_recovery_2022_2025.png
-│     ├─ compare_periods_전체방문자수.png
-│     ├─ compare_periods_관광총소비_천원.png
-│     ├─ compare_periods_숙박업소비_천원.png
-│     ├─ compare_periods_식음료업소비_천원.png
-│     └─ compare_periods_쇼핑소비_천원.png
 ├─ REPORT.md
 └─ README.md
 
 ```
 
-## 10. 폴더별 상세 설명
+## 11. 폴더별 상세 설명
 
-### 10.1 `data/raw/`
+### 11.1 `app.py`
+Streamlit 대시보드의 실행 파일이다.  
+사용자는 이 파일을 통해 연도와 변수를 선택하고 월별 비교 그래프와 데이터 미리보기를 확인할 수 있다.
+
+### 11.2 `dashboard/`
+대시보드 구성 요소를 모아둔 폴더이다.  
+설정, 데이터 로딩, 차트 생성 등 Streamlit 앱 실행에 필요한 기능을 분리하여 관리한다.
+
+### 11.3 `data/raw/`
 원본 CSV 데이터가 저장된 폴더이다.  
 2018년부터 2025년까지의 관광 관련 자료가 원자료 형태로 보관되어 있다.
 
-### 10.2 `data/processed/`
+### 11.4 `data/processed/`
 원본 데이터를 정리·통합하여 생성한 전처리 결과물이 저장된 폴더이다.  
 분석 및 시각화는 주로 이 폴더의 데이터를 기반으로 수행하였다.
 
@@ -321,7 +360,7 @@
 - `03_regional_basic.csv` : 기초지자체 단위 데이터 정리본
 - `monthly_tourism_variables.csv` : 핵심 분석 변수만 추출한 최종 분석용 데이터셋
 
-### 10.3 `src/`
+### 11.5 `src/`
 데이터 점검, 전처리, 분석, 시각화, 보고서 생성을 위한 Python 코드가 저장된 폴더이다.
 
 주요 파일은 다음과 같다.
@@ -333,57 +372,57 @@
 - `02_visualization.py` : 주요 그래프 및 시각화 결과 생성
 - `03_report.py` : 분석 결과 요약 및 보고서 정리
 
-### 10.4 `output/`
+### 11.6 `output/`
 데이터 점검 결과, 시각화 파일, 월별 변동 패턴 분석 결과 등 모든 산출물이 저장된 폴더이다.  
 특히 `output/seasonality/` 폴더에는 월별 평균표, 상대수준 지수표, 비교 그래프가 포함되어 있다.
 
 ---
 
-## 11. 주요 산출물 목록
+## 12. 주요 산출물 목록
 
-### 11.1 데이터 점검 결과
+### 12.1 데이터 점검 결과
 - `output/check_data_report.txt`
 - `output/check_data_summary.csv`
 
-### 11.2 기본 시각화 결과
+### 12.2 기본 시각화 결과
 - `output/01_heatmap_regional_trend.png`
 - `output/02_line_top5_regions.png`
 - `output/03_bar_top10_basic_2025.png`
 - `output/04_boxplot_distribution.png`
 
-### 11.3 월평균 산출표
+### 12.3 월평균 산출표
 - `output/seasonality/monthly_mean_overall_2018_2025.csv`
 - `output/seasonality/monthly_mean_pre_covid_2018_2019.csv`
 - `output/seasonality/monthly_mean_covid_2020_2021.csv`
 - `output/seasonality/monthly_mean_recovery_2022_2025.csv`
 
-### 11.4 월별 상대수준 지수표
+### 12.4 월별 상대수준 지수표
 - `output/seasonality/seasonal_index_overall_2018_2025.csv`
 - `output/seasonality/seasonal_index_pre_covid_2018_2019.csv`
 - `output/seasonality/seasonal_index_covid_2020_2021.csv`
 - `output/seasonality/seasonal_index_recovery_2022_2025.csv`
 
-### 11.5 시계열 및 월별 패턴 시각화
+### 12.5 시계열 및 월별 패턴 시각화
 - `output/seasonality/time_series_main_variables.png`
 - `output/seasonality/seasonal_index_overall_2018_2025.png`
 - `output/seasonality/seasonal_index_pre_covid_2018_2019.png`
 - `output/seasonality/seasonal_index_covid_2020_2021.png`
 - `output/seasonality/seasonal_index_recovery_2022_2025.png`
 
-### 11.6 변수별 시기 비교 그래프
+### 12.6 변수별 시기 비교 그래프
 - `output/seasonality/compare_periods_전체방문자수.png`
 - `output/seasonality/compare_periods_관광총소비_천원.png`
 - `output/seasonality/compare_periods_숙박업소비_천원.png`
 - `output/seasonality/compare_periods_식음료업소비_천원.png`
 - `output/seasonality/compare_periods_쇼핑소비_천원.png`
 
-### 11.7 문서 파일
+### 12.7 문서 파일
 - `REPORT.md`
 - `README.md`
 
 ---
 
-## 12. 분석 절차 요약
+## 13. 분석 절차 요약
 
 본 프로젝트는 다음 순서로 진행되었다.
 
@@ -396,27 +435,28 @@
 7. 전체 기간 기준 월별 변동 패턴 분석
 8. 코로나 이전·영향기·회복기 비교 분석
 9. 그래프 및 결과표 생성
-10. 최종 보고서 및 README 작성
+10. Streamlit 대시보드 설계 및 구현
+11. 최종 보고서 및 README 작성
 
 ---
 
-## 13. 분석의 한계
+## 14. 분석의 한계
 
-### 13.1 월 단위 분석의 한계
+### 14.1 월 단위 분석의 한계
 본 분석은 월별 자료를 활용하였으므로, 주간·일간 단위의 세부 변동이나 짧은 기간의 급격한 변화는 충분히 반영하지 못한다.
 
-### 13.2 외생 변수 미반영
+### 14.2 외생 변수 미반영
 기상조건, 공휴일 배열, 물가상승, 교통비 변화, 지역 축제 개최 여부 등 관광 수요에 영향을 줄 수 있는 외생 변수는 본 분석에 직접 포함되지 않았다.
 
-### 13.3 전국 단위 분석의 한계
+### 14.3 전국 단위 분석의 한계
 본 과제는 전국 단위 월별 구조를 중심으로 분석하였기 때문에, 특정 지역별 특수성과 세부 업종별 차이를 충분히 설명하는 데에는 한계가 있다.
 
-### 13.4 인과관계 분석의 부재
+### 14.4 인과관계 분석의 부재
 본 분석은 월별 변동 패턴과 시기별 차이를 파악하는 데 목적이 있으므로, 특정 현상이 왜 발생했는지에 대한 엄밀한 인과분석까지 수행한 것은 아니다.
 
 ---
 
-## 14. 결론
+## 15. 결론
 
 본 프로젝트는 2018년 1월부터 2025년 12월까지의 전국 관광 데이터를 활용하여, 방문자수와 관광소비의 월별 변동 패턴을 분석하였다.
 
@@ -426,9 +466,22 @@
 
 종합하면, 본 분석은 전국 관광의 월별 수요 및 소비 흐름을 정량적으로 확인하고, 성수기·비수기 대응 전략 수립을 위한 기초자료를 제공하였다는 점에서 의의를 가진다.
 
+또한 분석 결과를 Streamlit 대시보드로 구현함으로써, 사용자가 연도와 변수를 직접 선택하여 월별 패턴을 탐색할 수 있는 상호작용형 결과물로 확장하였다.
 ---
 
-## 15. 참고 사항
+## 16. 실행 방법
+
+### 16.1 분석 코드 실행
+전처리, 분석, 시각화 코드는 `src/` 폴더의 Python 파일을 통해 수행할 수 있다.
+
+### 16.2 대시보드 실행
+아래 명령어를 입력하면 Streamlit 대시보드를 실행할 수 있다.
+
+```bash
+python -m streamlit run app.py
+```
+
+## 17. 참고 사항
 
 - 본 저장소는 과제 제출용으로 정리되었다.
 - 분석 결과는 저장소 내 표와 그래프 파일로 확인할 수 있다.

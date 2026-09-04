@@ -1,5 +1,9 @@
 # 전국 관광 월별 변동 패턴 분석 보고서
 
+> **GitHub 저장소**: https://github.com/leemin629/3-1st-mission  
+> **데이터 출처**: 한국관광데이터랩 https://datalab.visitkorea.or.kr/  
+> **AI 생성 기록**: AI_LOG.md 참고
+
 ## 1. 프로젝트 개요
 
 본 프로젝트는 **2018년 1월부터 2025년 12월까지의 전국 관광 관련 월별 데이터**를 활용하여, 관광 수요와 소비의 **월별 변동 패턴**을 분석한 결과를 정리한 보고서이다.
@@ -592,3 +596,9 @@ streamlit run app.py
 | 코로나 이후 변화 | 회복기에 기존 패턴 재강화 |
 
 이상으로 전국 관광 월별 변동 패턴 분석 프로젝트 보고서를 마친다.
+
+## 참고
+- GitHub 저장소: https://github.com/leemin629/3-1st-mission
+- 데이터 출처: 한국관광데이터랩
+- 원문 URL: https://datalab.visitkorea.or.kr/
+- AI 활용 기록: AI_LOG.md

@@ -1,5 +1,9 @@
 # 전국 관광 월별 변동 패턴 분석
 
+> **GitHub 저장소**: https://github.com/leemin629/3-1st-mission  
+> **데이터 출처**: 한국관광데이터랩 https://datalab.visitkorea.or.kr/  
+> **AI 생성 기록**: AI_LOG.md 참고
+
 ## 1. 프로젝트 개요
 
 본 프로젝트는 **2018년 1월부터 2025년 12월까지의 전국 관광 관련 월별 데이터**를 활용하여, 관광 수요와 소비의 **월별 변동 패턴**을 분석한 결과를 정리한 저장소이다.
@@ -486,3 +490,9 @@ python -m streamlit run app.py
 - 본 저장소는 과제 제출용으로 정리되었다.
 - 분석 결과는 저장소 내 표와 그래프 파일로 확인할 수 있다.
 - 세부 분석 과정은 `src/` 폴더의 코드와 `output/seasonality/` 폴더의 산출물을 통해 재확인할 수 있다.
+
+## 참고
+- GitHub 저장소: https://github.com/leemin629/3-1st-mission
+- 데이터 출처: 한국관광데이터랩
+- 원문 URL: https://datalab.visitkorea.or.kr/
+- AI 활용 기록: AI_LOG.md

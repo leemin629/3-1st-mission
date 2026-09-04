@@ -283,5 +283,25 @@ def run_dashboard():
         fig = make_line_chart(df, var_col, var_label, selected_years)
         st.plotly_chart(fig, use_container_width=True)
 
+# -----------------------------
+# 탭 구조로 실행
+# -----------------------------
+def main():
+    tab_home, tab1, tab2 = st.tabs([
+        "🏠 소개",
+        "📈 전국 월별 변화",
+        "🗺️ 지역별 방문자"
+    ])
+
+    with tab_home:
+        st.write("메인 소개 화면 (곧 채울 예정)")
+
+    with tab1:
+        run_dashboard()   # ← 지금 완성된 화면!
+
+    with tab2:
+        st.write("지역별 화면 (곧 만들 예정)")
+
+
 if __name__ == "__main__":
-    run_dashboard()
+    main()

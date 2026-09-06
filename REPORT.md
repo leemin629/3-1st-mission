@@ -573,9 +573,28 @@ streamlit run app.py
 
 ---
 
-## 14. 부록
+## 14. 실행 화면
 
-### 14.1 핵심 분석 변수 요약
+## 소개
+<img src="./실행화면 스크린 샷/실행-소개.png" alt="소개" width="1000" style="max-width:100%; height:auto;">
+
+## 전국 월별 변화
+<img src="./실행화면 스크린 샷/실행-전국1.png" alt="전국1" width="1000" style="max-width:100%; height:auto;">
+
+## 전국 관광 소비 분석
+<img src="./실행화면 스크린 샷/실행-전국2.png" alt="전국2" width="1000" style="max-width:100%; height:auto;">
+
+## 지역별 방문 변화
+<img src="./실행화면 스크린 샷/실행-지역1.png" alt="지역1" width="1000" style="max-width:100%; height:auto;">
+
+## 지역별 방문자 수 추이
+<img src="./실행화면 스크린 샷/실행-지역2.png" alt="지역2" width="1000" style="max-width:100%; height:auto;">
+
+## 전국 관광 소비
+<img src="./실행화면 스크린 샷/실행-소비.png" alt="소비" width="1000" style="max-width:100%; height:auto;">
+## 15. 부록
+
+### 15.1 핵심 분석 변수 요약
 
 | 변수명 | 의미 |
 |---|---|
@@ -585,7 +604,7 @@ streamlit run app.py
 | 식음료업소비_천원 | 식음료 관련 소비 금액 |
 | 쇼핑소비_천원 | 쇼핑 관련 소비 금액 |
 
-### 14.2 분석 핵심 요약
+### 15.2 분석 핵심 요약
 
 | 항목 | 주요 내용 |
 |---|---|
